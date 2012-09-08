@@ -8,5 +8,4 @@ class Array
 	end
 end
 
-sample = ['abc','def',1234,234,'x','mnop',5,'zZzZ']
-puts sample.create_hash
+
