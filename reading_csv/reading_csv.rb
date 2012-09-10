@@ -10,9 +10,6 @@ def reading_csv
 	emp = CSV.read("employee.csv") 
 	dev,des = emp.partition {|s| s[2].eql?(" Developer")}
 	
-
-	
-puts hash['Developer']
 	File.open('emp_format2.csv','w') do |row|
 	  		hash.each do|k,v|
   			row.puts"#{k}:"
