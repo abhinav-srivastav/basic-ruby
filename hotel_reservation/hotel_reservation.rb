@@ -1,6 +1,7 @@
 require 'json'
 require 'date'
 require 'pp'
+
 def hotel_reservation(from, till)
 	arrival = Date.parse(from)
 	departure = Date.parse(till)
@@ -11,11 +12,11 @@ def hotel_reservation(from, till)
 	json.each do |hotel_detail|
 	
 		hotel_name = hotel_detail['Hotel_name']
-		puts "\nameHotel name : #{hotel_name}"
+		puts "\nHotel name : #{hotel_name}"
 		rate = hotel_detail['rate'].to_i
 		puts "Rate : #{rate}"
 		tax = hotel_detail['tax'].to_i
-	
+		puts "Duration of stay : #{duration} days "
 			if hotel_detail.include?'seasonal_rates'
 			seasonal = hotel_detail['seasonal_rates']
 	
