@@ -7,9 +7,6 @@ def reading_csv
   		hash[row[2].lstrip] += "#{row[0]} (EmpId: #{row[1]})\n"
 	end
 
-	emp = CSV.read("employee.csv") 
-	dev,des = emp.partition {|s| s[2].eql?(" Developer")}
-	
 	File.open('emp_format2.csv','w') do |row|
 	  		hash.each do|k,v|
   			row.puts"#{k}:"
@@ -18,4 +15,4 @@ def reading_csv
 	end  
 end
 
-reading_csv
+puts reading_csv
