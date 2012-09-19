@@ -1,9 +1,7 @@
 class Array
 	def rev_iterate
-		len = self.length - 1
-		until len < 0 do
-			yield self[len]
-			len  -= 1
+		while self.length > 0 do
+			yield self.pop
 		end
 	end
 end
