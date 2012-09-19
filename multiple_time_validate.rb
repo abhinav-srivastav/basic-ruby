@@ -1,37 +1,34 @@
+require 'time'
 def reg_validate(time)
 	exp = /(\d day & )?[0-23][:[0-59]]{2}/i
-	puts time if time =~ exp
+  puts time if time =~ exp
 end
 
-
-def time_validate(*time)
-	0.upto(time.length - 1 ) do |i|
-		time[i] = time[i].split(':').reverse
-	end
+def time_validate(*time)	
 	time_add = Array.new(3)
 	time_add.fill(0)
-	l = 60
-	day = ""
-	time[1].each_index do |x|
-		total = 0
-		0.upto(time.length - 1) do |i|
-			total += time[i][x].to_i  
-		end
-		if x == 2 
-			l = 24
-			time_add[x] += (time_add[x] + total)%l
-			day = (total/l).to_s
-		else 
-	 		time_add[x] += (total + time_add[x])%l
-			time_add[x+1] += total/l
-		end
-	end
+	day = 0
+	time.each do |add_time|
+		add_time = Time.parse(add_time)
+		time_add[2] = (add_time.sec + time_add[2]).to_i % 60
+		time_add[1] += (add_time.sec + time_add[1]).to_i / 60
+
+		time_add[1] = (add_time.min + time_add[1]).to_i % 60
+		time_add[0] += (add_time.min + time_add[0]).to_i / 60
+
+		time_add[0] = (add_time.hour + time_add[0]).to_i % 24
+		day += (add_time.hour).to_i
+  end
+  
+  day/=24
 	time_add.each_index do |t|
 		time_add[t] = time_add[t].to_s.rjust(2,'0')
 	end
-	time_add = time_add.reverse.join(":")
-	time_add = day + " day & " + time_add unless day == '0'
+  
+  time_add = time_add.join(':').to_s
+	time_add = day.to_s + " day & " + time_add unless day == 0
 	reg_validate(time_add)
+
 end
 
-
+time_validate "23:59:59", "23:59:59", "23:59:59", "23:59:59"
